@@ -15,35 +15,35 @@ for ii in range (N):
 	ctr.pause(2)
 
 	# quit the game and go to settings
-	ctr.h()
+	ctr.HOME()
 	ctr.pause(1)
-	ctr.d()
+	ctr.DOWN()
 	for jj in range(4):
-		ctr.r()
+		ctr.RIGHT()
 	ctr.A()
-	ctr.d(2)
-	ctr.r()
+	ctr.DOWN(2)
+	ctr.RIGHT()
 	for jj in range(4):
-		ctr.d()
+		ctr.DOWN()
 	ctr.A()
 
 	# change the date
-	ctr.d(0.4) # Scroll down to bottom
+	ctr.DOWN(0.4) # Scroll down to bottom
 	ctr.A()
-	ctr.r()
-	ctr.r()
+	ctr.RIGHT()
+	ctr.RIGHT()
 	if ii < FrameCycle:
-		ctr.u()
+		ctr.UP()
 	else:
 		for jj in range(FrameCycle):
-			ctr.d()
-	ctr.r(0.4)
+			ctr.DOWN()
+	ctr.RIGHT(0.4)
 	ctr.A()
 
 	# enter the game, quit the raid
-	ctr.h()
+	ctr.HOME()
 	ctr.pause(0.2)
-	ctr.u()
+	ctr.UP()
 	ctr.A()
 	ctr.pause(1.1)
 	ctr.B()

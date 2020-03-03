@@ -17,8 +17,8 @@ for i in range(N):
 	ctr.X()
 	ctr.pause(1)
 	if i == 0: # Select map
-		ctr.ls_d(0.5)
-		ctr.ls_l(0.7)
+		ctr.LS_DOWN(0.5)
+		ctr.LS_LEFT(0.7)
 	ctr.A()
 	ctr.pause(2.5)
 	ctr.A()
@@ -27,8 +27,8 @@ for i in range(N):
 	ctr.pause(2.8)
 
 	# Go back to Day Care
-	ctr.ls_d(0.7)
-	ctr.ls_r(0.2)
+	ctr.LS_DOWN(0.7)
+	ctr.LS_RIGHT(0.2)
 	ctr.pause(0.2)
 
 	print(f"Picking {i + 1}th egg(s)")
@@ -43,7 +43,7 @@ for i in range(N):
 	ctr.B()
 	ctr.pause(2.1)
 	for jj in range(slot):
-		ctr.d()
+		ctr.DOWN()
 		ctr.pause(0.1)
 	ctr.A()
 	ctr.pause(2.5)
@@ -52,15 +52,15 @@ for i in range(N):
 	ctr.B()
 
 	# Move forward
-	ctr.ls_u(2)
-	ctr.ls_r(1)
+	ctr.LS_UP(2)
+	ctr.LS_RIGHT(1)
 
 	for c in range(cycle):
 		ctr.B()
-		ctr.ls_r(0.6)
-		ctr.ls_d(0.5)
-		ctr.ls_l(0.5)
-		ctr.ls_u(0.5)
+		ctr.LS_RIGHT(0.6)
+		ctr.LS_DOWN(0.5)
+		ctr.LS_LEFT(0.5)
+		ctr.LS_UP(0.5)
 
 	for cnt in range(hatchingtime):
 		ctr.B()

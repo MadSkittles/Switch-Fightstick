@@ -9,7 +9,7 @@ ctr.A()
 ctr.pause(1)
 ctr.A()
 ctr.pause(0.3)
-ctr.h()
+ctr.HOME()
 
 response = input("Restart(y/n): ")
 while response == 'y':
@@ -30,7 +30,7 @@ while response == 'y':
 	ctr.pause(1)
 	ctr.A()
 	ctr.pause(0.3)
-	ctr.h()
+	ctr.HOME()
 
 	response = input("Restart(y/n): ")
 
