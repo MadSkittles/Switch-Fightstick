@@ -53,7 +53,12 @@ class Controller:
         self.ser.close()
         print("Connection closed!")
 
-    def __exit__(self):
+    def __enter__(self):
+        self.LR()
+        self.pause(0.5)
+        return self
+
+    def __exit__(self, type, value, trace):
         self.close()
 
     def combinations(self, button_lists, duration=0.1):
