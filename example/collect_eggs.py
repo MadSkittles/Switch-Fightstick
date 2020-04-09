@@ -1,7 +1,7 @@
 from NXController import Controller
 
 LAPS = 3
-N = 90
+N = 430
 
 
 def fly_to_daycare_at_5(ctrl: Controller):
@@ -66,5 +66,7 @@ with Controller() as ctrl:
     ctrl.LS_RIGHT(0.2)
 
     for i in range(N):
-        print(f"Cruise to get egg #{i+1}")
         cruise(ctrl, LAPS)
+        print(f"{i+1}/{N} eggs collected")
+
+    ctrl.sleepmode()
