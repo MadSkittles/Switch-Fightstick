@@ -1,7 +1,7 @@
 from NXController import Controller
 import math
 
-CYCLE = 20  # Egg cycles
+CYCLE = 15  # Egg cycles
 N = 360  # Number of eggs to receive
 current_column = 1
 MOVE_EGG_ON_STARTUP = True

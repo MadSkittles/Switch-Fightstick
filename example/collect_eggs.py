@@ -1,7 +1,7 @@
 from NXController import Controller
 
 LAPS = 3
-N = 430
+N = 100
 
 
 def fly_to_daycare_at_5(ctrl: Controller):
