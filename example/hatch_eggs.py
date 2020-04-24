@@ -3,8 +3,8 @@ import math
 from NXController import Controller
 
 CYCLE = 25  # Egg cycles
-N = 230  # Number of eggs to receive
-current_column = 3
+N = 365  # Number of eggs to receive
+current_column = 1
 SLEEP_AFTER_HATCHING = True
 
 
@@ -105,6 +105,7 @@ def fly_to_daycare(ctrl: Controller):
     ctrl.A()
     ctrl.pause(2.8)
 
+def get_ready_to_hatch(ctrl: Controller):
     ctrl.LS_UP(1.5)
     ctrl.LS_RIGHT(1.8)
 
@@ -115,11 +116,17 @@ with Controller() as ctrl:
     for i in range(math.ceil(N / 5)):
         fly_to_daycare(ctrl)
 
+        if i == 0:
+            move_egg(ctrl, current_column, True, True)
+
+        get_ready_to_hatch(ctrl) 
+
         for c in range(CYCLE):
             print(f"Loop #{c+1}")
             
             if c > 0 and c % 20 == 0:
                 fly_to_daycare(ctrl)
+                get_ready_to_hatch(ctrl) 
 
             ctrl.LS_RIGHT(0.95)
             ctrl.LS_DOWN(0.95)

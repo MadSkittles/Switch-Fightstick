@@ -1,7 +1,7 @@
 from NXController import Controller
 
 LAPS = 3
-N = 340
+N = 460
 SLEEP_AFTER_COLLECTING = False
 
 
