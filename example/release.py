@@ -1,13 +1,13 @@
 from NXController import Controller
 
 start_index = 0
-N = 157  # Number of Pokemon
+N = 356  # Number of Pokemon
 
 with Controller() as ctr:
     for ii in range(start_index, N):
         print(f"{ii+1}/{N} released")
         ctr.A()
-        ctr.pause(0.1)
+        ctr.pause(0.5)
         ctr.UP()
         ctr.UP()
         ctr.A()
