@@ -1,10 +1,10 @@
-from NXController import Controller
 import math
 
-CYCLE = 15  # Egg cycles
-N = 360  # Number of eggs to receive
-current_column = 1
-MOVE_EGG_ON_STARTUP = True
+from NXController import Controller
+
+CYCLE = 25  # Egg cycles
+N = 230  # Number of eggs to receive
+current_column = 3
 SLEEP_AFTER_HATCHING = True
 
 
@@ -93,30 +93,34 @@ def move_egg(ctrl: Controller, column: int, start_up=False, reset_postion=False)
     ctrl.pause(1)
 
 
+def fly_to_daycare(ctrl: Controller):
+    ctrl.X()
+    ctrl.pause(1)
+    ctrl.LS_DOWN(0.5)
+    ctrl.LS_LEFT(0.7)
+    ctrl.A()
+    ctrl.pause(2.5)
+    ctrl.A()
+    ctrl.pause(0.5)
+    ctrl.A()
+    ctrl.pause(2.8)
+
+    ctrl.LS_UP(1.5)
+    ctrl.LS_RIGHT(1.8)
+
+
 with Controller() as ctrl:
     ctrl.buttondelay = 0
 
     for i in range(math.ceil(N / 5)):
-        # Fly to Day Care in Wild Area
-        ctrl.X()
-        ctrl.pause(1)
-        ctrl.LS_DOWN(0.5)
-        ctrl.LS_LEFT(0.7)
-        ctrl.A()
-        ctrl.pause(2.5)
-        ctrl.A()
-        ctrl.pause(0.5)
-        ctrl.A()
-        ctrl.pause(2.8)
-
-        if i == 0 and MOVE_EGG_ON_STARTUP:
-            move_egg(ctrl, current_column, True, True)
-
-        ctrl.LS_UP(1.5)
-        ctrl.LS_RIGHT(1.8)
+        fly_to_daycare(ctrl)
 
         for c in range(CYCLE):
             print(f"Loop #{c+1}")
+            
+            if c > 0 and c % 20 == 0:
+                fly_to_daycare(ctrl)
+
             ctrl.LS_RIGHT(0.95)
             ctrl.LS_DOWN(0.95)
             ctrl.LS_LEFT(0.75)
@@ -133,7 +137,7 @@ with Controller() as ctrl:
             ctrl.LS_DOWN(0.3)
             ctrl.pause(0.5)
 
-        move_egg(ctrl, current_column, reset_postion=i != 0 or not MOVE_EGG_ON_STARTUP)
+        move_egg(ctrl, current_column, reset_postion=True)
         current_column = current_column % 6 + 1
 
     if SLEEP_AFTER_HATCHING:

@@ -1,7 +1,8 @@
 from NXController import Controller
 
 LAPS = 3
-N = 100
+N = 340
+SLEEP_AFTER_COLLECTING = False
 
 
 def fly_to_daycare_at_5(ctrl: Controller):
@@ -49,7 +50,7 @@ def cruise(ctrl: Controller, loop: int):
         ctrl.LS_LEFT(1.5)
         ctrl.LS_UP(0.3)
         if i == loop - 1:
-            ctrl.LS_RIGHT(1.6)
+            ctrl.LS_RIGHT(1.55)
             ctrl.LS_UP(0.3)
         else:
             ctrl.LS_RIGHT(1.5)
@@ -69,4 +70,5 @@ with Controller() as ctrl:
         cruise(ctrl, LAPS)
         print(f"{i+1}/{N} eggs collected")
 
-    ctrl.sleepmode()
+    if SLEEP_AFTER_COLLECTING:
+        ctrl.sleepmode()
