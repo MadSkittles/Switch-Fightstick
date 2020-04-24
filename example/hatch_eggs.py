@@ -126,7 +126,8 @@ with Controller() as ctrl:
             
             if c > 0 and c % 20 == 0:
                 fly_to_daycare(ctrl)
-                get_ready_to_hatch(ctrl) 
+                get_ready_to_hatch(ctrl)
+                continue
 
             ctrl.LS_RIGHT(0.95)
             ctrl.LS_DOWN(0.95)
