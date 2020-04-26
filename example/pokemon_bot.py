@@ -1,8 +1,7 @@
 import math
 
-from tqdm import trange
-
 from NXController import Controller
+from tqdm_helpers import trange
 
 
 class PokemonBot:
