@@ -1,6 +1,5 @@
-from tqdm import trange
-
 from NXController import Controller
+from tqdm_helpers import trange
 
 LAPS = 3
 N = 460

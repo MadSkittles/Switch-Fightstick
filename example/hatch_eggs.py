@@ -1,8 +1,7 @@
 import math
 
-from tqdm import trange
-
 from NXController import Controller
+from tqdm_helpers import trange
 
 CYCLE = 25  # Egg cycles
 N = 180  # Number of eggs to receive

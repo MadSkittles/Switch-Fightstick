@@ -1,9 +1,8 @@
-from tqdm import trange
-
 from NXController import Controller
+from tqdm_helpers import trange
 
-start_index = 1
-N = 322  # Number of Pokemon
+start_index = 20
+N = 153  # Number of Pokemon
 
 with Controller() as ctr:
     for ii in trange(start_index - 1, N, desc="Releasing", unit="egg"):
