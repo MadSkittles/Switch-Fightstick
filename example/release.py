@@ -3,11 +3,10 @@ from tqdm import trange
 from NXController import Controller
 
 start_index = 1
-N = 157  # Number of Pokemon
+N = 322  # Number of Pokemon
 
 with Controller() as ctr:
     for ii in trange(start_index - 1, N, desc="Releasing", unit="egg"):
-        print(f"{ii+1}/{N} released")
         ctr.A()
         ctr.pause(0.1)
         ctr.UP()
