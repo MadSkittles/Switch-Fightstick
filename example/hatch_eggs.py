@@ -116,7 +116,7 @@ def get_ready_to_hatch(ctrl: Controller):
 with Controller() as ctrl:
     ctrl.buttondelay = 0
 
-    for i in trange(math.ceil(N / 5), unit="5 eggs"):
+    for i in trange(math.ceil(N / 5), desc="Hatching", unit="5 eggs"):
         fly_to_daycare(ctrl)
 
         if i == 0:

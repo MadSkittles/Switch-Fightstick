@@ -14,16 +14,16 @@ class PokemonBot:
         self.controller.LS_UP(0.5)
         self.controller.LS_RIGHT(0.2)
 
-        for i in trange(egg_quantity):
+        for i in trange(egg_quantity, desc="Collecting", unit="egg"):
             self._cruise(self.controller, laps)
 
         if sleep_after_collecting:
             self.controller.sleepmode()
-            
+
     def hatch_eggs(self, egg_quantity: int, cycles: int, current_column_index=0, sleep_after_collecting=True):
         self.controller.buttondelay = 0
 
-        for i in trange(math.ceil(N / 5), unit="5 eggs"):
+        for i in trange(math.ceil(egg_quantity / 5), desc="Hatching", unit="5 eggs"):
             fly_in_situ(self.controller)
 
             if i == 0:
@@ -55,7 +55,7 @@ class PokemonBot:
             current_column_index = current_column_index % 6 + 1
 
         if sleep_after_collecting:
-            self.controller.sleepmode()              
+            self.controller.sleepmode()
 
     def fly_to_daycare_at_5(self):
         self.controller.X(0.1)

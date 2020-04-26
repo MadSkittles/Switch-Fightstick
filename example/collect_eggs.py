@@ -68,7 +68,7 @@ with Controller() as ctrl:
     ctrl.LS_UP(0.5)
     ctrl.LS_RIGHT(0.2)
 
-    for i in trange(N, unit="egg"):
+    for i in trange(N, desc="Collecting", unit="egg"):
         cruise(ctrl, LAPS)
 
     if SLEEP_AFTER_COLLECTING:
