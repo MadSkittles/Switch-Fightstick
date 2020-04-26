@@ -1,3 +1,5 @@
+from tqdm import trange
+
 from NXController import Controller
 
 LAPS = 3
@@ -66,9 +68,8 @@ with Controller() as ctrl:
     ctrl.LS_UP(0.5)
     ctrl.LS_RIGHT(0.2)
 
-    for i in range(N):
+    for i in trange(N, unit="egg"):
         cruise(ctrl, LAPS)
-        print(f"{i+1}/{N} eggs collected")
 
     if SLEEP_AFTER_COLLECTING:
         ctrl.sleepmode()
