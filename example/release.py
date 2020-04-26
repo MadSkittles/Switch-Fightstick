@@ -8,7 +8,7 @@ N = 322  # Number of Pokemon
 with Controller() as ctr:
     for ii in trange(start_index - 1, N, desc="Releasing", unit="egg"):
         ctr.A()
-        ctr.pause(0.1)
+        ctr.pause(0.5)
         ctr.UP()
         ctr.UP()
         ctr.A()
