@@ -1,9 +1,10 @@
 import math
 
 from NXController import Controller
+from tqdm_helpers import trange
 
 CYCLE = 25  # Egg cycles
-N = 365  # Number of eggs to receive
+N = 180  # Number of eggs to receive
 current_column = 1
 SLEEP_AFTER_HATCHING = True
 
@@ -105,6 +106,7 @@ def fly_to_daycare(ctrl: Controller):
     ctrl.A()
     ctrl.pause(2.8)
 
+
 def get_ready_to_hatch(ctrl: Controller):
     ctrl.LS_UP(1.5)
     ctrl.LS_RIGHT(1.8)
@@ -113,17 +115,15 @@ def get_ready_to_hatch(ctrl: Controller):
 with Controller() as ctrl:
     ctrl.buttondelay = 0
 
-    for i in range(math.ceil(N / 5)):
+    for i in trange(math.ceil(N / 5), desc="Hatching", unit="5 eggs"):
         fly_to_daycare(ctrl)
 
         if i == 0:
             move_egg(ctrl, current_column, True, True)
 
-        get_ready_to_hatch(ctrl) 
+        get_ready_to_hatch(ctrl)
 
         for c in range(CYCLE):
-            print(f"Loop #{c+1}")
-            
             if c > 0 and c % 20 == 0:
                 fly_to_daycare(ctrl)
                 get_ready_to_hatch(ctrl)
@@ -135,8 +135,6 @@ with Controller() as ctrl:
             ctrl.LS_UP(0.75)
 
         for c in range(5):
-            print(f"{i*5+c+1}/{N} eggs hatched")
-
             ctrl.A()
             ctrl.pause(15)
             ctrl.A()
