@@ -9,6 +9,8 @@ class PokemonBot:
         self.controller = controller
 
     def collect_eggs(self, egg_quantity: int, laps: int, sleep_after_collecting=True):
+        egg_quantity = int(egg_quantity * 1.25)
+
         self.controller.LS_LEFT(0.1)
         self.controller.LS_UP(0.5)
         self.controller.LS_RIGHT(0.2)
