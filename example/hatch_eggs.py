@@ -3,9 +3,9 @@ import math
 from NXController import Controller
 from tqdm_helpers import trange
 
-CYCLE = 25  # Egg cycles
-N = 180  # Number of eggs to receive
-current_column = 1
+CYCLE = 20  # Egg cycles
+N = 17 * 30 - 10  # Number of eggs to receive
+current_column = 3
 SLEEP_AFTER_HATCHING = True
 
 
@@ -143,7 +143,7 @@ with Controller() as ctrl:
             ctrl.LS_DOWN(0.3)
             ctrl.pause(0.5)
 
-        move_egg(ctrl, current_column, reset_postion=True)
+        move_egg(ctrl, current_column, reset_postion=(i > 0 or N > 20))
         current_column = current_column % 6 + 1
 
     if SLEEP_AFTER_HATCHING:
