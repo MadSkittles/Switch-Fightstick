@@ -2,7 +2,7 @@ from NXController import Controller
 from tqdm_helpers import trange
 
 LAPS = 3
-N = 460
+N = 17 * 30
 SLEEP_AFTER_COLLECTING = False
 
 
@@ -62,6 +62,7 @@ def cruise(ctrl: Controller, loop: int):
 
 with Controller() as ctrl:
     # fly_to_daycare_at_5(ctrl)
+    N = int(N * 1.25)
 
     ctrl.LS_LEFT(0.1)
     ctrl.LS_UP(0.5)
