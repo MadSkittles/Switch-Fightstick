@@ -23,10 +23,10 @@ class PokemonBot:
         self.controller.buttondelay = 0
 
         for i in trange(math.ceil(egg_quantity / 5), desc="Hatching", unit="5 eggs"):
-            fly_in_situ(self.controller)
+            self.fly_in_situ(self.controller)
 
             if i == 0:
-                _move_egg(self.controller, current_column_index, True, True)
+                self._move_egg(self.controller, current_column_index, True, True)
 
             self._get_ready_to_hatch(self.controller)
 
@@ -50,7 +50,7 @@ class PokemonBot:
                 self.controller.LS_DOWN(0.3)
                 self.controller.pause(0.5)
 
-            _move_egg(self.controller, current_column_index, reset_postion=True)
+            self._move_egg(self.controller, current_column_index, reset_postion=(i > 0 or cycles > 20))
             current_column_index = current_column_index % 6 + 1
 
         if sleep_after_collecting:
