@@ -9,31 +9,33 @@ class PokemonBot:
         self.controller = controller
 
     def collect_eggs(self, egg_quantity: int, laps: int, sleep_after_collecting=True):
+        egg_quantity = int(egg_quantity * 1.25)
+
         self.controller.LS_LEFT(0.1)
         self.controller.LS_UP(0.5)
         self.controller.LS_RIGHT(0.2)
 
         for i in trange(egg_quantity, desc="Collecting", unit="egg"):
-            self._cruise(self.controller, laps)
+            self._cruise(laps)
 
         if sleep_after_collecting:
             self.controller.sleepmode()
 
-    def hatch_eggs(self, egg_quantity: int, cycles: int, current_column_index=0, sleep_after_collecting=True):
+    def hatch_eggs(self, egg_quantity: int, cycles: int, current_column_index=1, sleep_after_collecting=True):
         self.controller.buttondelay = 0
 
         for i in trange(math.ceil(egg_quantity / 5), desc="Hatching", unit="5 eggs"):
-            self.fly_in_situ(self.controller)
+            self.fly_in_situ()
 
             if i == 0:
-                self._move_egg(self.controller, current_column_index, True, True)
+                self._move_egg(current_column_index, True, True)
 
-            self._get_ready_to_hatch(self.controller)
+            self._get_ready_to_hatch()
 
             for c in range(cycles):
                 if c > 0 and c % 20 == 0:
-                    self.fly_in_situ(self.controller)
-                    self._get_ready_to_hatch(self.controller)
+                    self.fly_in_situ()
+                    self._get_ready_to_hatch()
                     continue
 
                 self.controller.LS_RIGHT(0.95)
@@ -50,20 +52,90 @@ class PokemonBot:
                 self.controller.LS_DOWN(0.3)
                 self.controller.pause(0.5)
 
-            self._move_egg(self.controller, current_column_index, reset_postion=(i > 0 or cycles > 20))
+            self._move_egg(current_column_index, reset_postion=(i > 0 or cycles > 20))
             current_column_index = current_column_index % 6 + 1
 
         if sleep_after_collecting:
             self.controller.sleepmode()
+
+    def move_placeholder_pokemon(self, box_move_pace: int):
+        self.controller.X()
+        self.controller.pause(0.5)
+        self.controller.UP()
+        self.controller.pause(0.5)
+        self.controller.RIGHT()
+        self.controller.pause(0.5)
+        self.controller.A()
+        self.controller.pause(1.7)
+        self.controller.LR()
+        self.controller.pause(2)
+
+        for _ in range(abs(box_move_pace)):
+            if box_move_pace < 0:
+                self.controller.L()
+                self.controller.pause(0.3)
+            else:
+                self.controller.R()
+                self.controller.pause(0.3)
+
+        self._switch_range_select_mode()
+        self.controller.LEFT()
+        self.controller.pause(0.3)
+        self.controller.DOWN()
+        self.controller.pause(0.3)
+
+        self._range_selct()
+        self.controller.RIGHT()
+        self.controller.pause(0.1)
+        self.controller.UP()
+        self.controller.pause(0.3)
+        self.controller.A()
+        self.controller.pause(0.3)
+
+        for _ in range(abs(box_move_pace)):
+            if box_move_pace > 0:
+                self.controller.L()
+                self.controller.pause(0.3)
+            else:
+                self.controller.R()
+                self.controller.pause(0.3)
+
+        self.controller.B()
+        self.controller.pause(2)
+        self.controller.B()
+        self.controller.pause(1.7)
+        self.controller.B()
+        self.controller.pause(1)
+
+    def fly_to_daycare_at_bridgefield(self):
+        self.controller.X(0.1)
+        self.controller.pause(0.5)
+        self.controller.DOWN(0.5)
+        self.controller.LEFT(1.7)
+        self.controller.A(0.1)
+        self.controller.pause(2)
+
+        self.controller.LEFT(3)
+        self.controller.DOWN(5)
+        self.controller.pause(0.5)
+
+        self.controller.UP(1.12)
+        self.controller.pause(0.5)
+        self.controller.RIGHT(0.65)
+        self.controller.pause(0.5)
+
+        self.controller.A(0.3)
+        self.controller.A(0.3)
+        self.controller.pause(10)
 
     def fly_to_daycare_at_5(self):
         self.controller.X(0.1)
         self.controller.pause(0.5)
         self.controller.DOWN(0.5)
         self.controller.LEFT(1.7)
-
         self.controller.A(0.1)
         self.controller.pause(2)
+
         self.controller.LEFT(3)
         self.controller.DOWN(5)
         self.controller.pause(0.5)
@@ -105,22 +177,22 @@ class PokemonBot:
                 self.controller.LS_RIGHT(1.5)
 
         self.controller.pause(1)
-        self._get_egg(self.controller)
+        self._get_egg()
 
-    def _move_egg(self, strt_column: int, start_up=False, reset_postion=False):
-        def switch_range_select_mode():
-            for _ in range(2):
-                self.controller.Y()
-                self.controller.pause(0.1)
+    def _switch_range_select_mode(self):
+        for _ in range(2):
+            self.controller.Y()
+            self.controller.pause(0.1)
 
-        def range_selct():
-            self.controller.A()
-            self.controller.pause(0.3)
-            self.controller.DOWN(0.7)
-            self.controller.pause(0.3)
-            self.controller.A()
-            self.controller.pause(0.3)
+    def _range_selct(self):
+        self.controller.A()
+        self.controller.pause(0.3)
+        self.controller.DOWN(0.7)
+        self.controller.pause(0.3)
+        self.controller.A()
+        self.controller.pause(0.3)
 
+    def _move_egg(self, column: int, start_up=False, reset_postion=False):
         self.controller.X()
         self.controller.pause(0.5)
         if reset_postion:
@@ -134,13 +206,13 @@ class PokemonBot:
         self.controller.pause(2)
 
         if start_up:
-            for _ in range(strt_column - 1):
+            for _ in range(column - 1):
                 self.controller.RIGHT()
                 self.controller.pause(0.3)
-            switch_range_select_mode()
-            range_selct()
+            self._switch_range_select_mode()
+            self._range_selct()
             self.controller.pause(0.3)
-            for _ in range(strt_column):
+            for _ in range(column):
                 self.controller.LEFT()
                 self.controller.pause(0.1)
             self.controller.DOWN()
@@ -149,14 +221,14 @@ class PokemonBot:
             self.controller.pause(0.5)
 
         else:
-            switch_range_select_mode()
+            self._switch_range_select_mode()
             self.controller.LEFT()
             self.controller.pause(0.3)
             self.controller.DOWN()
             self.controller.pause(0.3)
 
-            range_selct()
-            for _ in range(strt_column):
+            self._range_selct()
+            for _ in range(column):
                 self.controller.RIGHT()
                 self.controller.pause(0.1)
             self.controller.UP()
@@ -164,19 +236,19 @@ class PokemonBot:
             self.controller.A()
             self.controller.pause(0.3)
 
-            if strt_column == 6:
+            if column == 6:
                 self.controller.R()
                 self.controller.pause(0.5)
                 for _ in range(5):
                     self.controller.LEFT()
                     self.controller.pause(0.1)
-                strt_column = 0
+                column = 0
             else:
                 self.controller.RIGHT()
             self.controller.pause(0.1)
-            range_selct()
+            self._range_selct()
             self.controller.pause(0.3)
-            for _ in range(strt_column + 1):
+            for _ in range(column + 1):
                 self.controller.LEFT()
                 self.controller.pause(0.1)
             self.controller.DOWN()
