@@ -21,7 +21,13 @@ class PokemonBot:
         if sleep_after_collecting:
             self.controller.sleepmode()
 
-    def hatch_eggs(self, egg_quantity: int, cycles: int, current_column_index=1, sleep_after_collecting=True):
+    def hatch_eggs(
+        self,
+        egg_quantity: int,
+        cycles: int,
+        current_column_index=1,
+        sleep_after_collecting=True,
+    ):
         self.controller.buttondelay = 0
 
         for i in trange(math.ceil(egg_quantity / 5), desc="Hatching", unit="5 eggs"):
@@ -278,3 +284,9 @@ class PokemonBot:
     def _get_ready_to_hatch(self):
         self.controller.LS_UP(1.5)
         self.controller.LS_RIGHT(1.8)
+
+
+if __name__ == "__main__":
+    with Controller() as ctrl:
+        bot = PokemonBot(ctrl)
+        bot.fly_to_daycare_at_bridgefield()
