@@ -19,7 +19,9 @@ if __name__ == "__main__":
     with Controller() as ctrl:
         bot = PokemonBot(ctrl)
         if COLLECTING_NEEDED:
-            bot.collect_eggs(N_COLLECTING, LAPS, not HATCHING_NEEDED and SLEEP_AFTER_COMPLETION)
+            bot.collect_eggs(
+                N_COLLECTING, LAPS, not HATCHING_NEEDED and SLEEP_AFTER_COMPLETION
+            )
             ctrl.pause(1)
 
         if COLLECTING_NEEDED and HATCHING_NEEDED:

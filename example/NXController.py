@@ -54,8 +54,8 @@ class Controller:
         print("Connection closed!")
 
     def __enter__(self):
-        # self.ZL()
-        # self.pause(0.5)
+        self.ZL()
+        self.pause(0.5)
         return self
 
     def __exit__(self, type, value, trace):
