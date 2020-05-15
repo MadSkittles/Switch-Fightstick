@@ -21,13 +21,7 @@ class PokemonBot:
         if sleep_after_collecting:
             self.controller.sleepmode()
 
-    def hatch_eggs(
-        self,
-        egg_quantity: int,
-        cycles: int,
-        current_column_index=1,
-        sleep_after_collecting=True,
-    ):
+    def hatch_eggs(self, egg_quantity: int, cycles: int, current_column_index=1, sleep_after_collecting=True, no_egg_left=False):
         self.controller.buttondelay = 0
 
         for i in trange(math.ceil(egg_quantity / 5), desc="Hatching", unit="5 eggs"):
@@ -51,7 +45,7 @@ class PokemonBot:
 
             for c in range(5):
                 self.controller.A()
-                self.controller.pause(15)
+                self.controller.pause(15 + (2.5 if no_egg_left else 0))
                 self.controller.A()
                 self.controller.pause(5)
 
